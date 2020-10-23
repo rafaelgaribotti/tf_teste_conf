@@ -1,0 +1,2 @@
+
+char * identifier(char * ident);
