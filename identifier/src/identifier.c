@@ -43,8 +43,8 @@ const char * identifier(char * ident){
     //achar = fgetc(ident);
     achar = ident[length];
   }
-  //if (valid_id && (length >= 1) && (length < 6)) {
-  if (valid_id && (length >= 1) && (length <= 6)) {
+  if (valid_id && (length >= 1) && (length < 6)) {
+  //if (valid_id && (length >= 1) && (length <= 6)) {
     //printf("Valido\n");
     return "Valido";
   }

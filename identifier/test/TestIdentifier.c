@@ -49,3 +49,11 @@ void test_payment_classe_equivalencia_5(void){
 
   TEST_ASSERT_EQUAL_STRING("Invalido", returned);
 }
+
+void test_payment_classe_equivalencia_6(void){
+  char ident[10] = "abc12";
+
+  char * returned = identifier(ident);
+
+  TEST_ASSERT_EQUAL_STRING("Valido", returned);
+}
