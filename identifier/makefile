@@ -42,6 +42,9 @@ CFLAGS += -Wno-unknown-pragmas
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
+CFLAGS += -fsanitize=address
+CFLAGS += -ftest-coverage
+CFLAGS += -fprofile-arcs
 
 TARGET_BASE1=test_identifier
 #TARGET_BASE2=test2
@@ -52,14 +55,14 @@ SRC_FILES1=$(UNITY_ROOT)/unity/unity.c src/identifier.c  test/TestIdentifier.c  
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity
 SYMBOLS=
 
-all: clean default
+all: clean default test
 
 #default: $(SRC_FILES1) $(SRC_FILES2)
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
-#	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES2) -o $(TARGET2)
-	- ./$(TARGET1)
-#	./$(TARGET2)
+
+test: test.sh
+	./test.sh
 
 test/test_runners/TestIdentifier_Runner.c: test/TestIdentifier.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestIdentifier.c  test/test_runners/TestIdentifier_Runner.c
