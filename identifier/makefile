@@ -20,6 +20,8 @@ else
 	TARGET_EXTENSION=.out
 endif
 
+.PHONY: all test clean
+
 C_COMPILER=gcc
 ifeq ($(shell uname -s), Darwin)
 C_COMPILER=clang
@@ -61,7 +63,7 @@ all: clean default test
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
 
-test: test.sh
+test:
 	./test.sh
 
 test/test_runners/TestIdentifier_Runner.c: test/TestIdentifier.c
@@ -70,7 +72,7 @@ test/test_runners/TestIdentifier_Runner.c: test/TestIdentifier.c
 #	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestProductionCode2.c test/test_runners/TestProductionCode2_Runner.c
 
 clean:
-	$(CLEANUP) $(TARGET1)
+	$(CLEANUP) $(TARGET1) *.o cov* *.dSYM *.gcda *.gcno *.gcov
 #	$(CLEANUP) $(TARGET1) $(TARGET2)
 
 ci: CFLAGS += -Werror
