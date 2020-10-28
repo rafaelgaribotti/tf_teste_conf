@@ -7,7 +7,7 @@ echo "\n${RED}Unity tests + Address Sanitizer${NC}\n"
 ./test_identifier.out
 
 echo "\n${RED}CPPcheck${NC}\n"
-cppcheck --enable=all src/identifier.c 
+cppcheck --enable=all --error-exitcode src/identifier.c 
 
 
 echo "\n${RED}Valgrind${NC}\n"
