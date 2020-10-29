@@ -18,3 +18,17 @@ install:
 script:
   - cd identifier/
   - make
+  - export RED='\033[0;31m'
+  - export NC='\033[0m' # No Color
+script: 
+  - echo "\n${RED}Unity tests + Address Sanitizer${NC}\n"
+  - ./test_identifier.out
+script: 
+  - echo "\n${RED}CPPcheck${NC}\n"
+  - cppcheck --enable=all src/identifier.c 
+script:
+  - echo "\n${RED}Valgrind${NC}\n"
+  - valgrind --leak-check=full --show-leak-kinds=all ./test_identifier.out
+script:
+  - echo "\n${RED}Gcov check${NC}\n"
+  - gcov -b identifier.gcno
