@@ -57,7 +57,7 @@ SRC_FILES1=$(UNITY_ROOT)/unity/unity.c src/identifier.c  test/TestIdentifier.c  
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity
 SYMBOLS=
 
-all: clean default test
+all: clean default #test
 
 #default: $(SRC_FILES1) $(SRC_FILES2)
 default: $(SRC_FILES1)
