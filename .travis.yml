@@ -35,8 +35,7 @@ jobs:
  script:
    echo "\n${RED}Valgrind${NC}\n" &&
    valgrind --leak-check=full --show-leak-kinds=all ./test_identifier.out
-   
- - stage: Valgrind
+ - stage: Gcov check
  script:
    echo "\n${RED}Gcov check${NC}\n" &&
    gcov -b identifier.gcno
