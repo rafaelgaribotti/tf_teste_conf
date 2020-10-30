@@ -33,11 +33,12 @@
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_payment_classe_equivalencia_1(void);
-extern void test_payment_classe_equivalencia_2(void);
-extern void test_payment_classe_equivalencia_3(void);
-extern void test_payment_classe_equivalencia_4(void);
-extern void test_payment_classe_equivalencia_5(void);
+extern void test_identifier_classe_equivalencia_1(void);
+extern void test_identifier_classe_equivalencia_2(void);
+extern void test_identifier_classe_equivalencia_3(void);
+extern void test_identifier_classe_equivalencia_4(void);
+extern void test_identifier_classe_equivalencia_5(void);
+extern void test_identifier_classe_equivalencia_6(void);
 
 
 /*=======Suite Setup=====*/
@@ -72,11 +73,12 @@ int main(void)
 {
   suite_setup();
   UnityBegin("test/TestIdentifier.c");
-  RUN_TEST(test_payment_classe_equivalencia_1, 13);
-  RUN_TEST(test_payment_classe_equivalencia_2, 21);
-  RUN_TEST(test_payment_classe_equivalencia_3, 29);
-  RUN_TEST(test_payment_classe_equivalencia_4, 37);
-  RUN_TEST(test_payment_classe_equivalencia_5, 45);
+  RUN_TEST(test_identifier_classe_equivalencia_1, 13);
+  RUN_TEST(test_identifier_classe_equivalencia_2, 21);
+  RUN_TEST(test_identifier_classe_equivalencia_3, 29);
+  RUN_TEST(test_identifier_classe_equivalencia_4, 37);
+  RUN_TEST(test_identifier_classe_equivalencia_5, 45);
+  RUN_TEST(test_identifier_classe_equivalencia_6, 53);
 
   return suite_teardown(UnityEnd());
 }
