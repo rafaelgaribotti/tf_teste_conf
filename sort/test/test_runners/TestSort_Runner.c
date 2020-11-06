@@ -27,18 +27,19 @@
 #include <setjmp.h>
 #endif
 #include <stdio.h>
-#include "identifier.h"
+#include "sort.h"
 #include <stdio.h>
+#include <limits.h>
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_identifier_classe_equivalencia_1(void);
-extern void test_identifier_classe_equivalencia_2(void);
-extern void test_identifier_classe_equivalencia_3(void);
-extern void test_identifier_classe_equivalencia_4(void);
-extern void test_identifier_classe_equivalencia_5(void);
-extern void test_identifier_classe_equivalencia_6(void);
+extern void test_selection_sort(void);
+extern void test_insertion_sort(void);
+extern void test_shell_sort(void);
+extern void test_quick_sort(void);
+extern void test_heap_sort(void);
+extern void test_merge_sort(void);
 
 
 /*=======Suite Setup=====*/
@@ -72,13 +73,13 @@ void resetTest(void)
 int main(void)
 {
   suite_setup();
-  UnityBegin("test/TestIdentifier.c");
-  RUN_TEST(test_identifier_classe_equivalencia_1, 13);
-  RUN_TEST(test_identifier_classe_equivalencia_2, 21);
-  RUN_TEST(test_identifier_classe_equivalencia_3, 29);
-  RUN_TEST(test_identifier_classe_equivalencia_4, 37);
-  RUN_TEST(test_identifier_classe_equivalencia_5, 45);
-  RUN_TEST(test_identifier_classe_equivalencia_6, 53);
+  UnityBegin("test/TestSort.c");
+  RUN_TEST(test_selection_sort, 24);
+  RUN_TEST(test_insertion_sort, 37);
+  RUN_TEST(test_shell_sort, 50);
+  RUN_TEST(test_quick_sort, 63);
+  RUN_TEST(test_heap_sort, 76);
+  RUN_TEST(test_merge_sort, 89);
 
   return suite_teardown(UnityEnd());
 }
