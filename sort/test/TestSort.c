@@ -22,23 +22,27 @@ void randomizeArray(int * v, int size){
     v[id] = rand()%size;
 }
 
-// test with empty array, simply should not break the code
-/*void test_sort1(void){
-  int v_original[] = {};
-  int size = 0;
-  int expected[] = {};
+char * get_sort_type(int i){
+	switch(i){
+        case SELECTION:
+            return "Selection";
 
-  for(int i=0; i<6; ++i){
-    int * v = (int*)malloc(sizeof(int)*size);
+        case INSERTION:
+            return "Insertion";
 
-    memcpy(v, v_original, size);
-    
-    v = sort_array(v, size, i);
-    //TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
-    free(v);
-  }
+        case SHELL:
+            return "Shell";
 
-}*/
+        case QUICK:
+            return "Quick";
+
+        case HEAP:
+            return "Heap";
+
+        case MERGE:
+            return "Merge"; 
+    }
+}
 
 // test with repeated elements
 void test_sort2(void){
@@ -53,7 +57,7 @@ void test_sort2(void){
 
     sort_array(v, size, i);
 
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 
@@ -71,7 +75,7 @@ void test_sort3(void){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 
@@ -89,7 +93,7 @@ void test_sort4(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 
@@ -107,7 +111,7 @@ void test_sort5(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 
@@ -125,7 +129,7 @@ void test_sort6(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 }
@@ -142,7 +146,7 @@ void test_sort7(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 
@@ -189,7 +193,7 @@ void test_sort9(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 }
@@ -223,7 +227,7 @@ void test_sort11(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 }
@@ -260,7 +264,7 @@ void test_sort11(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size-1, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 }*/
@@ -277,7 +281,7 @@ void test_sort14(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, size);
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
     free(v);
   }
 }
@@ -300,81 +304,3 @@ void test_sort15(){
     free(v);
   }
 }
-
-/*void test_selection_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do selection sort
-  selection_sort(vet,size);
-
-  free(vet);
-
-}
-
-void test_insertion_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do insertion sort
-  insertion_sort(vet,size);
-
-  free(vet);
-
-}
-
-void test_shell_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do shell sort
-  shell_sort(vet,size);
-
-  free(vet);
-
-}
-
-void test_quick_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do quick sort
-  // quick_sort(vet,0,size);
-
-  free(vet);
-
-}
-
-void test_heap_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do heap sort
-  heap_sort(vet,size);
-
-  free(vet);
-
-}
-
-void test_merge_sort(void){
-
-  int size = SIZE_OF_ARRAY;
-  int *vet = (int*)malloc(sizeof(int)*size);
-  randomizeArray(vet,size);
-
-  // Aqui vamos fazer todas classes do merge sort
-  merge_sort(vet,size);
-
-  free(vet);
-
-}*/

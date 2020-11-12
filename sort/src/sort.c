@@ -240,31 +240,8 @@ int* sort_array(int *array, int size, int method){
             merge_sort(array, size);
             end = clock();
         break;
-/*
-        case GPUQUICK:
-            start = clock();
-            gpu_qsort(array,size);
-            end = clock();
-        break;
-
-        case GPUMERGE:
-            start = clock();
-            gpumerge_sort(array,size);
-            end = clock();
-*/            
     }
     elapsed_time = (((double)(end-start))/CLOCKS_PER_SEC);
     return array;
 }
 
-double get_elapsed_time(){
-    return elapsed_time;
-}
-
-int get_swaps(){
-    return numberOfSwaps;
-}
-
-int get_comparisons(){
-    return numberOfComparisons;
-}

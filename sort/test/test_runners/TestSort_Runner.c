@@ -30,16 +30,22 @@
 #include "sort.h"
 #include <stdio.h>
 #include <limits.h>
+#include <string.h>
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_selection_sort(void);
-extern void test_insertion_sort(void);
-extern void test_shell_sort(void);
-extern void test_quick_sort(void);
-extern void test_heap_sort(void);
-extern void test_merge_sort(void);
+extern void test_sort2(void);
+extern void test_sort3(void);
+extern void test_sort4();
+extern void test_sort5();
+extern void test_sort6();
+extern void test_sort7();
+extern void test_sort9();
+extern void test_sort10();
+extern void test_sort11();
+extern void test_sort14();
+extern void test_sort15();
 
 
 /*=======Suite Setup=====*/
@@ -74,12 +80,17 @@ int main(void)
 {
   suite_setup();
   UnityBegin("test/TestSort.c");
-  RUN_TEST(test_selection_sort, 24);
-  RUN_TEST(test_insertion_sort, 37);
-  RUN_TEST(test_shell_sort, 50);
-  RUN_TEST(test_quick_sort, 63);
-  RUN_TEST(test_heap_sort, 76);
-  RUN_TEST(test_merge_sort, 89);
+  RUN_TEST(test_sort2, 48);
+  RUN_TEST(test_sort3, 67);
+  RUN_TEST(test_sort4, 85);
+  RUN_TEST(test_sort5, 103);
+  RUN_TEST(test_sort6, 121);
+  RUN_TEST(test_sort7, 138);
+  RUN_TEST(test_sort9, 185);
+  RUN_TEST(test_sort10, 202);
+  RUN_TEST(test_sort11, 219);
+  RUN_TEST(test_sort14, 273);
+  RUN_TEST(test_sort15, 290);
 
   return suite_teardown(UnityEnd());
 }
