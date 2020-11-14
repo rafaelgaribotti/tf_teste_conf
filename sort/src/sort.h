@@ -43,8 +43,5 @@ void heap_sort(int vet[], int n);
 void merge_sort(int* vet, int n);
 
 int* sort_array(int *vet, int size, int method);
-double get_elapsed_time();
-int get_swaps();
-int get_comparisons();
 
 #endif

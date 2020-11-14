@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define SIZE_OF_ARRAY 1000
 
@@ -14,15 +15,15 @@ void tearDown(void)
 {
 }
 
-void randomizeArray(int * v, int size){
-  // This is a random key, trust me.
-  srand(89465848948);
-  int id;
-  for(id=0;id<size;id++)
-    v[id] = rand()%size;
-}
+// void randomizeArray(int * v, int size){
+//   // This is a random key, trust me.
+//   srand(89465848948);
+//   int id;
+//   for(id=0;id<size;id++)
+//     v[id] = rand()%size;
+// }
 
-char * get_sort_type(int i){
+const char * get_sort_type(int i){
 	switch(i){
         case SELECTION:
             return "Selection";
@@ -40,8 +41,13 @@ char * get_sort_type(int i){
             return "Heap";
 
         case MERGE:
-            return "Merge"; 
+            return "Merge";
+
+        default:
+        	return "Undefined";
+
     }
+    return "Undefined";
 }
 
 // test with repeated elements
@@ -56,11 +62,12 @@ void test_sort2(void){
     memcpy(v, v_original, sizeof(v_original));
 
     sort_array(v, size, i);
-
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
-
+  sort_array(v_original, size, 7); //code coverage 100%
 }
 
 // regular test
@@ -74,15 +81,17 @@ void test_sort3(void){
 
     memcpy(v, v_original, sizeof(v_original));
     
-    sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    sort_array(v, size, i);    
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 
 }
 
 //test with repeated numbers
-void test_sort4(){
+void test_sort4(void){
   int v_original[] = {5,5,5,5,5,5,5,5};
   int size = 8;
   int expected[] = {5,5,5,5,5,5,5,5};
@@ -92,15 +101,17 @@ void test_sort4(){
 
     memcpy(v, v_original, sizeof(v_original));
     
-    sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    sort_array(v, size, i);    
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 
 }
 
 //test with one number
-void test_sort5(){
+void test_sort5(void){
   int v_original[] = {1};
   int size = 1;
   int expected[] = {1};
@@ -110,15 +121,17 @@ void test_sort5(){
 
     memcpy(v, v_original, sizeof(v_original));
     
-    sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    sort_array(v, size, i);    
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 
 }
 
 //test with repeated negative numbers
-void test_sort6(){
+void test_sort6(void){
   int v_original[] = {-1,-1,-1,-1,-1,-1};
   int size = 6;
   int expected[] = {-1,-1,-1,-1,-1,-1};
@@ -129,13 +142,15 @@ void test_sort6(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 }
 
 //test with INT_MAX and INT_MIN
-void test_sort7(){
+void test_sort7(void){
   int v_original[] = {INT_MAX,INT_MIN};
   int size = 2;
   int expected[] = {INT_MIN,INT_MAX};
@@ -146,7 +161,9 @@ void test_sort7(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 
@@ -182,7 +199,7 @@ void test_sort7(){
 }*/
 
 //test subset with negative numbers
-void test_sort9(){
+void test_sort9(void){
   int v_original[] = {-1,-1,-1,0,-1};
   int expected[] = {-1,-1,-1,0};
   int size = 4;
@@ -193,13 +210,15 @@ void test_sort9(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 }
 
 //test if subset is untouched
-void test_sort10(){
+void test_sort10(void){
   int v_original[10] = {3, 2, 1, 0, -1, 1, 0, -1, 1, 0};
   int expected[] = {1, 2, 3, 0, -1, 1, 0, -1, 1, 0};
   int size = 3;
@@ -210,13 +229,15 @@ void test_sort10(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY(expected, v, 10);
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, 10, error_message);
     free(v);
   }
 }
 
 //test array of unsigned int
-void test_sort11(){
+void test_sort11(void){
   unsigned int v_original[] = {3, 2, 1};
   unsigned int expected[] = {1, 2, 3};
   int size = 3;
@@ -225,9 +246,10 @@ void test_sort11(){
     unsigned int * v = (unsigned int*)malloc(sizeof(int)*sizeof(v_original));
 
     memcpy(v, v_original, sizeof(v_original));
-    
-    sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    sort_array((int*)v, size, i);
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 }
@@ -270,7 +292,7 @@ void test_sort11(){
 }*/
 
 //test sort in the boudaries
-void test_sort14(){
+void test_sort14(void){
   int v_original[] = {INT_MAX-2, INT_MAX-1, INT_MAX, INT_MIN+2, INT_MIN+1, INT_MIN};
   int expected[] = {INT_MIN, INT_MIN+1, INT_MIN+2, INT_MAX-2, INT_MAX-1, INT_MAX};
   int size = 6; 
@@ -281,13 +303,15 @@ void test_sort14(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
 }
 
 //test sorting only a subset of the array using the boundaries
-void test_sort15(){
+void test_sort15(void){
   int v_original[] = {INT_MAX, INT_MIN, INT_MAX, INT_MIN, INT_MIN};
   int expected[] = {INT_MIN, INT_MAX};
   int expected2[] = {INT_MAX, INT_MIN, INT_MIN};
@@ -299,8 +323,10 @@ void test_sort15(){
     memcpy(v, v_original, sizeof(v_original));
     
     sort_array(v, size, i);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected, v, size);
-    TEST_ASSERT_EQUAL_INT_ARRAY(expected2, &v[2], 3);
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_INT_ARRAY_MESSAGE(expected, v, size,error_message);
+    TEST_ASSERT_EQUAL_INT_ARRAY_MESSAGE(expected2, &v[2], 3,error_message);
     free(v);
   }
 }
