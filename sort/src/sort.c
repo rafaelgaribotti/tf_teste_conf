@@ -52,7 +52,7 @@ void insertion_sort(int *array, int size) {
    for (i = 1; i < size; i++){
       selected = array[i];
       j = i - 1;
-      while ((j > 0) && (selected < =array[j])) {
+      while ((j > 0) && (selected <= array[j])) {
          array[j+1] = array[j];
          j--;
          numberOfComparisons++;
