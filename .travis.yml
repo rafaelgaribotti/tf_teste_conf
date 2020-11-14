@@ -16,9 +16,9 @@ addons:
 install:
   - "[ $GCC = gcc ] && export GCC=gcc || true"
 script:
-  - cd identifier/
+  - cd sort/
   - make
-  - ./test_identifier.out
-  - cppcheck --enable=all src/identifier.c
-  - valgrind --leak-check=full --show-leak-kinds=all ./test_identifier.out
-  - gcov -b identifier.gcno
+  - ./test_sort.out
+  - cppcheck --enable=all src/sort.c
+  - valgrind --leak-check=full --show-leak-kinds=all ./test_sort.out
+  - gcov -b sort.gcno

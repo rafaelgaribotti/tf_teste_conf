@@ -29,7 +29,7 @@ int numberOfSwaps;
 
 void selection_sort(int *array, int size){
     int i, j, min, aux;
-      for (i = 0; i < (size-1); i++){
+      for (i = 0; i < (size); i++){
         min = i;
         for (j = (i+1); j < size; j++) {
             numberOfComparisons++;
@@ -52,13 +52,13 @@ void insertion_sort(int *array, int size) {
    for (i = 1; i < size; i++){
       selected = array[i];
       j = i - 1;
-      while ((j >= 0) && (selected < array[j])) {
+      while ((j > 0) && (selected < =array[j])) {
          array[j+1] = array[j];
          j--;
          numberOfComparisons++;
       }
       numberOfSwaps++;
-      array[j+1] = selected;
+      array[j] = selected;
    }
 }
 
@@ -100,7 +100,7 @@ void quick_sort(int array[], int left, int right) {
             j--;
             numberOfComparisons++;
         }
-        if(i <= j){
+        if(i < j){
             y = array[i];
             array[i] = array[j];
             array[j] = y;
@@ -144,7 +144,7 @@ void heap_sort(int array[], int n){
         while (child < n){
             if ((child + 1 < n)  &&  (array[child + 1] > array[child])){
               	child++;
-            	numberOfComparisons++;
+            	//numberOfComparisons++;
             }
           	if (array[child] > t){
              	numberOfComparisons++;
