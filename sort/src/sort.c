@@ -17,7 +17,6 @@
  */
 
 #include"sort.h"
-//#include"cuda_sort.h"
 #include<string.h>
 #include<stdlib.h>
 
@@ -25,7 +24,6 @@ clock_t start, end;
 double elapsed_time;
 int numberOfComparisons;
 int numberOfSwaps;
-
 
 void selection_sort(int *array, int size){
     int i, j, min, aux;

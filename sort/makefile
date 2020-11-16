@@ -55,7 +55,7 @@ SRC_FILES1=$(UNITY_ROOT)/unity/unity.c src/sort.c  test/TestSort.c  test/test_ru
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity
 SYMBOLS=
 
-all: clean default #test
+all: clean default test
 
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
@@ -70,7 +70,7 @@ test/test_runners/TestSort_Runner.c: test/TestSort.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/TestSort.c  test/test_runners/TestSort_Runner.c
 
 clean:
-	$(CLEANUP) $(TARGET1) *.o cov* *.dSYM *.gcda *.gcno *.gcov
+	$(CLEANUP) $(TARGET1) *.o cov* *.dSYM *.gcda *.gcno *.gcov test_sort.out
 
 ci: CFLAGS += -Werror
 ci: default

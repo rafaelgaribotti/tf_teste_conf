@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #define SIZE_OF_ARRAY 1000
+#define BIG_ARRAY 10000
 
 void setUp(void)
 {
@@ -50,8 +51,31 @@ const char * get_sort_type(int i){
     return "Undefined";
 }
 
+void test_init(void){
+  sort_array(NULL, 0, -1); // 100% coverage
+}
+
+// test with already ordered
+/*void test_already_ordered(void){
+  int v_original[] = {0,1,2,3,4,5,6,7,8,9};
+  int size = 10;
+  int expected[] = {0,1,2,3,4,5,6,7,8,9};
+
+  for(int i=0; i<6; ++i){
+    int * v = (int*)malloc(sizeof(int)*sizeof(v_original));
+
+    memcpy(v, v_original, sizeof(v_original));
+
+    sort_array(v, size, i);
+    char error_message[50];
+    sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
+    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
+    free(v);
+  }
+}*/
+
 // test with repeated elements
-void test_sort2(void){
+void test_repeated_elements(void){
   int v_original[] = {10,10,10,3,3,1};
   int size = 6;
   int expected[] = {1,3,3,10,10,10};
@@ -67,11 +91,10 @@ void test_sort2(void){
     TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
     free(v);
   }
-  sort_array(v_original, size, 7); //code coverage 100%
 }
 
 // regular test
-void test_sort3(void){
+void test_regular(void){
   int v_original[] = {10,9,8,7,6,5,4,3,2,-10};
   int size = 10;
   int expected[] = {-10,2,3,4,5,6,7,8,9,10};
@@ -90,8 +113,8 @@ void test_sort3(void){
 
 }
 
-//test with repeated numbers
-void test_sort4(void){
+//test with same numbers
+void test_same_elements(void){
   int v_original[] = {5,5,5,5,5,5,5,5};
   int size = 8;
   int expected[] = {5,5,5,5,5,5,5,5};
@@ -110,8 +133,8 @@ void test_sort4(void){
 
 }
 
-//test with one number
-void test_sort5(void){
+//test with one element
+void test_one_element(void){
   int v_original[] = {1};
   int size = 1;
   int expected[] = {1};
@@ -131,7 +154,7 @@ void test_sort5(void){
 }
 
 //test with repeated negative numbers
-void test_sort6(void){
+void test_repeated_negative(void){
   int v_original[] = {-1,-1,-1,-1,-1,-1};
   int size = 6;
   int expected[] = {-1,-1,-1,-1,-1,-1};
@@ -149,11 +172,16 @@ void test_sort6(void){
   }
 }
 
-//test with INT_MAX and INT_MIN
-void test_sort7(void){
-  int v_original[] = {INT_MAX,INT_MIN};
-  int size = 2;
-  int expected[] = {INT_MIN,INT_MAX};
+//test BIG_ARRAY rand elements with LOG_n checking
+void test_big_array(void){
+
+  int v_original[BIG_ARRAY]; 
+  int size = BIG_ARRAY;
+  int id;
+  // This is a random key, trust me.
+  srand(894658488);
+  for(id=0;id<BIG_ARRAY;id++)
+    v_original[id] = rand()%BIG_ARRAY;
 
   for(int i=0; i<6; ++i){
     int * v = (int*)malloc(sizeof(int)*sizeof(v_original));
@@ -163,43 +191,24 @@ void test_sort7(void){
     sort_array(v, size, i);
     char error_message[50];
     sprintf(error_message,"Error in Sort %s\n", get_sort_type(i));
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, error_message);
+    // for 10K elements ->
+    // 4999     9999
+    // 2499     4999
+    // ...
+    // 2        4
+    // 1        2
+    for(id=size-1; ; ){
+      if(v[id] != v[id/2])
+        TEST_ASSERT_LESS_THAN_MESSAGE(v[id], v[id/2], error_message);
+      id = (int)id/2;
+      if(id/2==0) break;
+    }
     free(v);
   }
-
 }
 
-//test BIG_ARRAY rand elements with LOG_n checking
-/*void test_sort8(){
-
-  int v[BIG_ARRAY]; 
-  int size = BIG_ARRAY;
-  int id;
-  // This is a random key, trust me.
-  srand(89465848948);
-  for(id=0;id<BIG_ARRAY;id++)
-    v[id] = rand()%BIG_ARRAY;
-
-  sort(v,size);
-
-  // for 10K elements ->
-  // 4999     9999
-  // 2499     4999
-  // ...
-  // 2        4
-  // 1        2
-
-  for(id=size-1; ; ){
-    if(v[id] != v[id/2])
-      TEST_ASSERT_LESS_THAN(v[id], v[id/2]);
-    id = (int)id/2;
-    if(id/2==0) break;
-  }
-
-}*/
-
 //test subset with negative numbers
-void test_sort9(void){
+void test_subset_negative(void){
   int v_original[] = {-1,-1,-1,0,-1};
   int expected[] = {-1,-1,-1,0};
   int size = 4;
@@ -218,7 +227,7 @@ void test_sort9(void){
 }
 
 //test if subset is untouched
-void test_sort10(void){
+void test_subset_untouched(void){
   int v_original[10] = {3, 2, 1, 0, -1, 1, 0, -1, 1, 0};
   int expected[] = {1, 2, 3, 0, -1, 1, 0, -1, 1, 0};
   int size = 3;
@@ -237,7 +246,7 @@ void test_sort10(void){
 }
 
 //test array of unsigned int
-void test_sort11(void){
+void test_unsigned_int(void){
   unsigned int v_original[] = {3, 2, 1};
   unsigned int expected[] = {1, 2, 3};
   int size = 3;
@@ -254,45 +263,8 @@ void test_sort11(void){
   }
 }
 
-//test sizeof vector before and after
-/*void test_sort12(){
-  int v[BIG_ARRAY]; 
-  int size = BIG_ARRAY;
-  int id;
-  // This is a random key, trust me.
-  srand(89465848948);
-  for(id=0;id<BIG_ARRAY;id++)
-    v[id] = rand()%BIG_ARRAY;
-
-  int array_size_init = sizeof(v);
-
-  sort(v,size);
-
-  int array_size_end = sizeof(v);
-
-
-  TEST_ASSERT_EQUAL_INT(array_size_init, array_size_end);
-}*/
-
-//test wrong size
-/*void test_sort13(){
-  int v_original = 1;
-  int expected = 1;
-  int size = 3; 
-
-  for(int i=0; i<6; ++i){
-    int * v = (int*)malloc(sizeof(int)*size);
-
-    memcpy(v, v_original, sizeof(v_original));
-    
-    sort_array(v, size-1, i);
-    TEST_ASSERT_EQUAL_HEX32_ARRAY_MESSAGE(expected, v, size, ("Error in Sort %s\n", get_sort_type(i)));
-    free(v);
-  }
-}*/
-
 //test sort in the boudaries
-void test_sort14(void){
+void test_boundaries(void){
   int v_original[] = {INT_MAX-2, INT_MAX-1, INT_MAX, INT_MIN+2, INT_MIN+1, INT_MIN};
   int expected[] = {INT_MIN, INT_MIN+1, INT_MIN+2, INT_MAX-2, INT_MAX-1, INT_MAX};
   int size = 6; 
@@ -311,7 +283,7 @@ void test_sort14(void){
 }
 
 //test sorting only a subset of the array using the boundaries
-void test_sort15(void){
+void test_subset_boundaries(void){
   int v_original[] = {INT_MAX, INT_MIN, INT_MAX, INT_MIN, INT_MIN};
   int expected[] = {INT_MIN, INT_MAX};
   int expected2[] = {INT_MAX, INT_MIN, INT_MIN};
