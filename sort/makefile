@@ -44,12 +44,13 @@ CFLAGS += -Wno-unknown-pragmas
 CFLAGS += -Wstrict-prototypes
 CFLAGS += -Wundef
 CFLAGS += -Wold-style-definition
-CFLAGS += -fsanitize=address
 CFLAGS += -ftest-coverage
 CFLAGS += -fprofile-arcs
 
 TARGET_BASE1=test_sort
+TARGET_BASE1=test_sort_sanitize
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
+TARGET2 = $(TARGET_BASE2)$(TARGET_EXTENSION)
 SRC_FILES1=$(UNITY_ROOT)/unity/unity.c src/sort.c  test/TestSort.c  test/test_runners/TestSort_Runner.c
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity
 SYMBOLS=
@@ -58,6 +59,9 @@ all: clean default #test
 
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+
+with_sanitize: $(SRC_FILES1)
+	$(C_COMPILER) $(CFLAGS) -fsanitize=address $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
 
 test:
 	./test.sh
