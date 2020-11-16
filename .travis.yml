@@ -18,8 +18,8 @@ install:
 script:
   - cd sort/
   - make
-  - ./test_sort.out
+  - ./test_sort_sanitize.out
   - cppcheck --enable=all src/sort.c
-  - valgrind --leak-check=full --show-leak-kinds=all ./test_sort.out
+  - valgrind --leak-check=full --show-leak-kinds=all ./test_sort_sanitize.out
   - ./test_sort_sanitize.out
   - gcov -b sort.gcno
