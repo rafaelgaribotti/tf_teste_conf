@@ -55,13 +55,13 @@ SRC_FILES1=$(UNITY_ROOT)/unity/unity.c src/sort.c  test/TestSort.c  test/test_ru
 INC_DIRS=-Isrc -I$(UNITY_ROOT)/unity
 SYMBOLS=
 
-all: clean default test
+all: clean default with_sanitize test
 
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
 
 with_sanitize: $(SRC_FILES1)
-	$(C_COMPILER) $(CFLAGS) -fsanitize=address $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+	$(C_COMPILER) $(CFLAGS) -fsanitize=address $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET2)
 
 test:
 	./test.sh
